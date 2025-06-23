@@ -1,5 +1,6 @@
-genai
-langchain
+transformers
+torch
+langchain-community
 streamlit
 python-dotenv
 PyPDF2
