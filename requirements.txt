@@ -1,6 +1,10 @@
-transformers
-torch
+google-generativeai
+langchain
 langchain-community
 streamlit
 python-dotenv
 PyPDF2
+transformers
+torch
+
+-e .
