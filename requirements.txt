@@ -6,5 +6,8 @@ python-dotenv
 PyPDF2
 transformers
 torch
+langchain-google-genai
+
+
 
 -e .
