@@ -6,12 +6,12 @@ import pandas as pd
 from src.mcqgenerator.utils import read_file,get_table_data
 from src.mcqgenerator.MCQGenerator import genereate_evaluate_chain
 from src.mcqgenerator.looger import logging
-from langchain_google_genai.callbacks import invoke_with_cost_logging
+from langchain.callbacks import get_openai_callback
 from dotenv import load_dotenv
 load_dotenv()
 
 with open('Response.json','r') as file:
-    RESPONSE_JSON = json.loads(file)
+    RESPONSE_JSON = json.load(file)
 
 st.title("MCQ generator using LangChain")
 
@@ -27,7 +27,7 @@ if button and uploaded_file is not None and mcq_count and subject and tone:
     with st.spinner("Loading...."):
         try:
             text = read_file(uploaded_file)
-            with invoke_with_cost_logging() as cb:
+            with get_openai_callback() as cb:
                 response = genereate_evaluate_chain.invoke(
                     {
                         "text": text,
@@ -59,4 +59,3 @@ if button and uploaded_file is not None and mcq_count and subject and tone:
                         st.error("Error in the table data")
             else:
                 st.write(response)
-                
