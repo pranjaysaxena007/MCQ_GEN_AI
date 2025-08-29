@@ -25,22 +25,23 @@ def read_file(file):
         
 def get_table_data(quiz_str):
     try:
-        #convert quiz from string to dict
-        quiz_dict = json.loads(quiz_str)
-        quiz_table_data = []
-        for key,value in quiz_dict.items():
-            mcq = value["mcq"]
-            options = " || ".join(
-                [
-                    f"{option}-> {option_value}" for option,option_value in value["options"].items()
-                ]
-            )
-
-            answer = value["correct"]
-            quiz_table_data.append({"MCQ":mcq,"Choices":options,"Answer":answer})
+        # Clean the string from markdown formatting
+        cleaned_str = quiz_str.strip().lstrip("```json").rstrip("```").strip()
         
+        # This variable will be a list of dictionaries
+        quiz_list = json.loads(cleaned_str) 
+        quiz_table_data = []
+
+        # Iterate directly over the list
+        for item in quiz_list:
+            mcq = item.get("question")
+            options = " || ".join(item.get("options", []))
+            answer = item.get("answer")
+            
+            quiz_table_data.append({"MCQ": mcq, "Choices": options, "Answer": answer})
+
         return quiz_table_data
 
     except Exception as e:
-        traceback.print_exception(type(e),e,e.__traceback__)
+        traceback.print_exc()
         return False

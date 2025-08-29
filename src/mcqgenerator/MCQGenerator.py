@@ -46,7 +46,7 @@ quiz_chain = quiz_generation_prompt | llm | StrOutputParser()
 review_prompt = ChatPromptTemplate.from_messages(
     [
         SystemMessage(
-            content ="You are an expert English grammarian and writer. You have to evaluate the given quiz as per instructions given below"
+            content ="You are an expert MCQ Analyzer for student benefit. You have to evaluate the given quiz as per instructions given below"
         ),
         HumanMessage(
             content="""Please review the multiple choice quiz intendede for {subject} sy=tudents.
@@ -57,9 +57,10 @@ review_prompt = ChatPromptTemplate.from_messages(
 
                 **Your Task:**
                 1. Evaluate the compleity of the questions.
-                2. Assess if the quiz is appropriate for students cognitive and quantitatib=ve ability.
-                3. If the quiz is not suitable, then rewrite the questions and adjust the tone to perfectly fit students abilities.
-                4. Provide a brief analysis of your changes or your approval of the original quiz.
+                2. Assess if the quiz is appropriate for students cognitive and quantitative ability.
+                3. New questions and answers created must be from given text only. The text is:{text}
+                4. If the quiz is not suitable, then rewrite the questions and adjust the tone to perfectly fit students abilities.
+                5. Provide a brief analysis of your changes or your approval of the original quiz.
                 
             """
         )
@@ -72,4 +73,3 @@ genereate_evaluate_chain =(
     RunnablePassthrough.assign(quiz = quiz_chain) | 
     RunnablePassthrough.assign(review = review_chain)
 )
-

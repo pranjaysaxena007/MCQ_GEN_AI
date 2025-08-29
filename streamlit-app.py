@@ -53,7 +53,7 @@ if button and uploaded_file is not None and mcq_count and subject and tone:
                     if table_data is not None:
                         df = pd.DataFrame(table_data)
                         df.index += 1
-                        st.table(df)
+                        st.write(df)
                         st.text_area(label="Review",value=response["review"])
                     else:
                         st.error("Error in the table data")
