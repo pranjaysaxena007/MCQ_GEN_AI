@@ -34,7 +34,7 @@ if button and uploaded_file is not None and mcq_count and subject and tone:
                         "number":mcq_count,
                         "subject": subject,
                         "tone":tone,
-                        "response_json": RESPONSE_JSON
+                        "response_json": json.dumps(RESPONSE_JSON)
                     }
                 )
         except Exception as e:
